@@ -1,9 +1,11 @@
-# backend/app.py
 import os
 from flask import Flask, render_template, request, jsonify
 from gemini_client import GeminiClient
 
-app = Flask(__name__, template_folder='../templates')
+# Dynamically resolve template path
+template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'templates'))
+app = Flask(__name__, template_folder=template_dir)
+
 client = GeminiClient()
 
 @app.route('/')
@@ -24,4 +26,5 @@ def chat():
         return jsonify({'error': 'Error generating response'}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))  # Render provides PORT
+    app.run(host='0.0.0.0', port=port, debug=True)
