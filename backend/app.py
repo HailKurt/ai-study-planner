@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, request, jsonify
-from gemini_client import GeminiClient
+from backend.gemini_client import GeminiClient
 
 # Dynamically resolve template path
 template_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'templates'))
